@@ -97,7 +97,7 @@ aliases:
       branches:
         only:
           - main
-          - bugfix/*
+          - bugfix/RI-2251_Image_for_linux
   stage-filter: &stageFilter
     filters:
       branches:
