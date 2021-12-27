@@ -43,7 +43,6 @@
     "artifactName": "${productName}-${os}-installer.${ext}"
   },
   "linux": {
-    "icon": "./resources/icons/512x512.png",
     "target": ["deb", "AppImage"],
     "synopsis": "Redis GUI by Redis Ltd.",
     "category": "Development",
