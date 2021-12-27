@@ -97,6 +97,7 @@ aliases:
       branches:
         only:
           - main
+          - bugfix/*
   stage-filter: &stageFilter
     filters:
       branches:
