@@ -733,51 +733,51 @@ jobs:
 workflows:
   build:
     jobs:
-      # unit tests (on any commit)
-      - unit-tests-ui:
-          name: UTest - UI
-      - unit-tests-api:
-          name: UTest - API
+      # # unit tests (on any commit)
+      # - unit-tests-ui:
+      #     name: UTest - UI
+      # - unit-tests-api:
+      #     name: UTest - API
 
-      # integration tests run in parallel (on any commit)
-      # target server runs locally to calculate code coverage
-      - integration-tests-run:
-          matrix:
-            alias: itest-code
-            parameters:
-              rte: *iTestsNames
-          name: ITest - << matrix.rte >> (code)
-      - integration-tests-coverage:
-          name: ITest - Final coverage
-          requires:
-            - itest-code
-        # e2e tests (doesn't affect pipeline even if fail)
-      - docker:
-          name: Build docker image
-          filters: &e2eFilter
-            branches:
-              only:
-                - /^release.*/
-                - /^e2e.*/
-                - /^feature/e2e.*/
-                - main
-                - latest
-      - e2e-tests:
-          name: E2ETest
-          build: docker
-          filters: *e2eFilter
-          requires:
-            - Build docker image
+      # # integration tests run in parallel (on any commit)
+      # # target server runs locally to calculate code coverage
+      # - integration-tests-run:
+      #     matrix:
+      #       alias: itest-code
+      #       parameters:
+      #         rte: *iTestsNames
+      #     name: ITest - << matrix.rte >> (code)
+      # - integration-tests-coverage:
+      #     name: ITest - Final coverage
+      #     requires:
+      #       - itest-code
+      #   # e2e tests (doesn't affect pipeline even if fail)
+      # - docker:
+      #     name: Build docker image
+      #     filters: &e2eFilter
+      #       branches:
+      #         only:
+      #           - /^release.*/
+      #           - /^e2e.*/
+      #           - /^feature/e2e.*/
+      #           - main
+      #           - latest
+      # - e2e-tests:
+      #     name: E2ETest
+      #     build: docker
+      #     filters: *e2eFilter
+      #     requires:
+      #       - Build docker image
 
       # build and release electron app (dev)
       - dev-build-approve:
           name: Build dev app
           type: approval
-          requires:
-            - UTest - UI
-            - UTest - API
-            - ITest - Final coverage
-          <<: *devFilter
+          # requires:
+            # - UTest - UI
+            # - UTest - API
+            # - ITest - Final coverage
+          # <<: *devFilter
       - setup-sign-certificates:
           name: Setup sign certificates (dev)
           requires:
@@ -812,10 +812,10 @@ workflows:
       # build and release electron app (stage)
       - setup-sign-certificates:
           name: Setup sign certificates (stage)
-          requires:
-            - UTest - UI
-            - UTest - API
-            - ITest - Final coverage
+          # requires:
+            # - UTest - UI
+            # - UTest - API
+            # - ITest - Final coverage
           <<: *stageFilter
       - setup-build:
           name: Setup build (stage)
@@ -858,10 +858,10 @@ workflows:
       # build and release electron app (prod)
       - setup-sign-certificates:
           name: Setup sign certificates (prod)
-          requires:
-            - UTest - UI
-            - UTest - API
-            - ITest - Final coverage
+          # requires:
+            # - UTest - UI
+            # - UTest - API
+            # - ITest - Final coverage
           <<: *prodFilter
       - setup-build:
           name: Setup build (prod)
