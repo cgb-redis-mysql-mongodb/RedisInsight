@@ -6,19 +6,19 @@ import * as AdmZip from 'adm-zip';
 import * as config from '../src/utils/config';
 
 const PATH_CONFIG = config.get('dir_path');
-const ENABLEMENT_AREA_CONFIG = config.get('enablementArea');
+const TUTORIALS_CONFIG = config.get('tutorials');
 
 async function init() {
   try {
-    await fs.remove(PATH_CONFIG.defaultEnablementArea);
+    await fs.remove(PATH_CONFIG.defaultTutorials);
 
-    await fs.ensureDir(PATH_CONFIG.defaultEnablementArea);
+    await fs.ensureDir(PATH_CONFIG.defaultTutorials);
 
     // get archive
     const { data } = await axios.get(
       new URL(path.join(
-        ENABLEMENT_AREA_CONFIG.updateUrl,
-        ENABLEMENT_AREA_CONFIG.zip,
+        TUTORIALS_CONFIG.updateUrl,
+        TUTORIALS_CONFIG.zip,
       )).toString(),
       {
         responseType: 'arraybuffer',
@@ -27,13 +27,13 @@ async function init() {
 
     // extract archive to default folder
     const zip = new AdmZip(data);
-    zip.extractAllTo(PATH_CONFIG.defaultEnablementArea, true);
+    zip.extractAllTo(PATH_CONFIG.defaultTutorials, true);
 
     // get build info
     const { data: buildInfo } = await axios.get(
       new URL(path.join(
-        ENABLEMENT_AREA_CONFIG.updateUrl,
-        ENABLEMENT_AREA_CONFIG.buildInfo,
+        TUTORIALS_CONFIG.updateUrl,
+        TUTORIALS_CONFIG.buildInfo,
       )).toString(),
       {
         responseType: 'arraybuffer',
@@ -42,13 +42,13 @@ async function init() {
 
     // save build info to default folder
     await fs.writeFile(
-      join(PATH_CONFIG.defaultEnablementArea, ENABLEMENT_AREA_CONFIG.buildInfo),
+      join(PATH_CONFIG.defaultTutorials, TUTORIALS_CONFIG.buildInfo),
       buildInfo,
     );
 
     process.exit(0);
   } catch (e) {
-    console.error('Something went wrong trying to get default enablement area archive', e);
+    console.error('Something went wrong trying to get default tutorials archive', e);
     process.exit(1);
   }
 }
