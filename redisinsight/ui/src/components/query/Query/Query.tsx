@@ -50,6 +50,7 @@ export interface Props {
 }
 
 const SYNTAX_CONTEXT_ID = 'syntaxWidgetContext'
+const argInQuotesRegExp = /^['"](.|[\r\n])*['"]$/
 let decorations: string[] = []
 let execHistoryPos: number = 0
 let execHistory: CommandExecutionUI[] = []
@@ -117,6 +118,11 @@ const Query = (props: Props) => {
 
   const onChange = (value: string = '') => {
     setQuery(value)
+
+    // clear history position after scrolling all list with empty value
+    if (value === '' && execHistoryPos >= execHistory.length) {
+      execHistoryPos = 0
+    }
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -160,7 +166,8 @@ const Query = (props: Props) => {
     const { editor } = monacoObjects?.current
 
     const position = editor.getPosition()
-    if (position?.lineNumber !== 1) return
+    // @ts-ignore
+    if (position?.lineNumber !== 1 || editor.getContribution('editor.contrib.suggestController')?.model?.state) return
 
     if (execHistory[execHistoryPos]) {
       const command = execHistory[execHistoryPos].command || ''
@@ -228,9 +235,9 @@ const Query = (props: Props) => {
       return
     }
 
-    if (queryArgIndex === argIndex && /^['"](.|[\r\n])*['"]$/.test(queryArg)) {
+    if (queryArgIndex === argIndex && argInQuotesRegExp.test(queryArg)) {
       if (isWidgetEscaped.current) return
-      const lang = argDSL in DSLNaming ? DSLNaming[argDSL] : null
+      const lang = DSLNaming[argDSL] ?? null
       lang && showSyntaxWidget(editor, e.position, lang)
       selectedArg.current = queryArg
       syntaxCommand.current = {
