@@ -45,8 +45,9 @@ enum ApiEndpoints {
   WORKBENCH_COMMAND_EXECUTIONS = 'workbench/command-executions',
 
   REDIS_COMMANDS = 'commands',
-  GUIDES = 'static/workbench/guides.json',
-  TUTORIALS = 'static/workbench/tutorilas.json',
+  GUIDES = 'static/workbench/enablement-area.json',
+  //TODO double check it, when tutorials will be completed
+  TUTORIALS = 'static/workbench/tutorials.json',
   PLUGINS = 'plugins',
   STATE = 'state',
   CONTENT_CREATE_DATABASE = 'static/content/create-redis.json',

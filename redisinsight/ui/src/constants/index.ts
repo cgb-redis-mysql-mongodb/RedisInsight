@@ -16,6 +16,6 @@ export * from './workbenchResults'
 export * from './monitorEvents'
 export * from './socketEvents'
 export * from './mocks/mock-redis-commands'
-export * from './mocks/mock-enablement-area'
+export * from './mocks/mock-guides'
 export * from './socketErrors'
 export { ApiEndpoints, BrowserStorageItem, ApiStatusCode, apiErrors }

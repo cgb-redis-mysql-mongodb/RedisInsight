@@ -3,7 +3,7 @@ import { startCase } from 'lodash'
 
 import { getApiErrorMessage, isStatusSuccessful } from 'uiSrc/utils'
 import { resourcesService } from 'uiSrc/services'
-import EnablementAreaContext from 'uiSrc/pages/workbench/contexts/enablementAreaContext'
+import GuidesContext from 'uiSrc/pages/workbench/contexts/guidesContext'
 import { getFileInfo } from 'uiSrc/pages/workbench/components/enablement-area/EnablementArea/utils/getFileInfo'
 
 import CodeButton from '../CodeButton'
@@ -15,7 +15,7 @@ export interface Props {
 const LazyCodeButton = ({ path = '', ...rest }: Props) => {
   const [isLoading, setLoading] = useState<boolean>(false)
   const [, setError] = useState<string>('')
-  const { setScript } = useContext(EnablementAreaContext)
+  const { setScript } = useContext(GuidesContext)
 
   const loadContent = async () => {
     if (path) {

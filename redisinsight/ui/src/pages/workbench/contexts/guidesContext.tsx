@@ -12,6 +12,6 @@ export const defaultValue = {
   setScript: (script: string) => script,
   openPage: (page: IInternalPage) => page
 }
-const EnablementAreaContext = React.createContext<IContext>(defaultValue)
-export const EnablementAreaProvider = EnablementAreaContext.Provider
-export default EnablementAreaContext
+const GuidesContext = React.createContext<IContext>(defaultValue)
+export const GuidesProvider = GuidesContext.Provider
+export default GuidesContext

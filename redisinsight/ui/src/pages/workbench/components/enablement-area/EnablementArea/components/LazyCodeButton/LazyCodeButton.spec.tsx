@@ -3,7 +3,7 @@ import { instance, mock } from 'ts-mockito'
 import { MONACO_MANUAL } from 'uiSrc/constants'
 import { fireEvent, render, waitFor } from 'uiSrc/utils/test-utils'
 import { resourcesService } from 'uiSrc/services'
-import { EnablementAreaProvider, defaultValue } from 'uiSrc/pages/workbench/contexts/enablementAreaContext'
+import { GuidesProvider, defaultValue } from 'uiSrc/pages/workbench/contexts/guidesContext'
 
 import LazyCodeButton, { Props } from './LazyCodeButton'
 
@@ -24,9 +24,9 @@ describe('LazyCodeButton', () => {
     resourcesService.get = jest.fn().mockResolvedValue(httpResponse)
 
     const { queryByTestId } = render(
-      <EnablementAreaProvider value={{ ...defaultValue, setScript }}>
+      <GuidesProvider value={{ ...defaultValue, setScript }}>
         <LazyCodeButton label="script" path="/static/script.txt" />
-      </EnablementAreaProvider>
+      </GuidesProvider>
     )
 
     await waitFor(() => {
@@ -47,9 +47,9 @@ describe('LazyCodeButton', () => {
     resourcesService.get = jest.fn().mockRejectedValue(httpResponse)
 
     const { queryByTestId } = render(
-      <EnablementAreaProvider value={{ ...defaultValue, setScript }}>
+      <GuidesProvider value={{ ...defaultValue, setScript }}>
         <LazyCodeButton label="script" path="/static/script.txt" />
-      </EnablementAreaProvider>
+      </GuidesProvider>
     )
 
     await waitFor(() => {

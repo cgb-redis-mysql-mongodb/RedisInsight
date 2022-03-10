@@ -8,7 +8,7 @@ enum BrowserStorageItem {
   segmentAnonymousId = 'ajs_anonymous_id',
   wbClientUuid = 'wbClientUuid',
   wbInputHistory = 'wbInputHistory',
-  isEnablementAreaMinimized = 'isEnablementAreaMinimized'
+  isGuidesMinimized = 'isGuidesMinimized'
 }
 
 export default BrowserStorageItem

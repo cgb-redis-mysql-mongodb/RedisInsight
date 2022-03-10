@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { EuiListGroupItem, EuiToolTip } from '@elastic/eui'
 import cx from 'classnames'
-import EnablementAreaContext from 'uiSrc/pages/workbench/contexts/enablementAreaContext'
+import GuidesContext from 'uiSrc/pages/workbench/contexts/guidesContext'
 
 import styles from './styles.module.scss'
 import './styles.scss'
@@ -19,7 +19,7 @@ export interface Props {
 }
 const InternalLink = (props: Props) => {
   const { label, testId, children, path = '', size = 's', iconType, iconPosition = 'left', toolTip, ...rest } = props
-  const { openPage } = useContext(EnablementAreaContext)
+  const { openPage } = useContext(GuidesContext)
   const handleOpenPage = () => {
     if (path) {
       openPage({ path, label })

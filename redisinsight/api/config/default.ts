@@ -37,8 +37,8 @@ export default {
     globalPrefix: 'api',
     customPluginsUri: '/plugins',
     staticUri: '/static',
-    guidesUri: '/static/workbench/guides',
-    tutorialsUri: '/static/workbench/tutorilas',
+    guidesUri: '/static/workbench',
+    tutorialsUri: '/static/workbench/tutorials',
     contentUri: '/static/content',
     defaultPluginsUri: '/static/plugins',
     pluginsAssetsUri: '/static/resources/plugins',
@@ -104,7 +104,7 @@ export default {
   },
   tutorials: {
     updateUrl: process.env.TUTORIALS_UPDATE_URL
-      || 'https://github.com/AmirAllayarovSofteq/test-totrilas/download/main',
+      || 'https://github.com/RedisInsight/Tutorials/releases/download/latest',
     zip: process.env.TUTORIALS_ZIP || 'data.zip',
     buildInfo: process.env.TUTORIALS_CHECKSUM || 'build.json',
     devMode: !!process.env.TUTORIALS_DEV_PATH,

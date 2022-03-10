@@ -7,7 +7,7 @@ import {
 } from '@elastic/eui'
 import cx from 'classnames'
 import { IEnablementAreaItem } from 'uiSrc/slices/interfaces'
-import EnablementAreaContext from 'uiSrc/pages/workbench/contexts/enablementAreaContext'
+import GuidesContext from 'uiSrc/pages/workbench/contexts/guidesContext'
 
 import styles from './styles.module.scss'
 
@@ -20,7 +20,7 @@ export interface Props {
 const Pagination = ({ items = [], activePageId, compressed }: Props) => {
   const [isPopoverOpen, setPopover] = useState(false)
   const [activePage, setActivePage] = useState(0)
-  const { openPage } = useContext(EnablementAreaContext)
+  const { openPage } = useContext(GuidesContext)
 
   useEffect(() => {
     if (activePageId) {

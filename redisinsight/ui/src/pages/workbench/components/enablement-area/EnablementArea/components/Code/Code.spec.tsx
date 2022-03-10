@@ -1,7 +1,7 @@
 import React from 'react'
 import { instance, mock } from 'ts-mockito'
 import { fireEvent, render } from 'uiSrc/utils/test-utils'
-import { EnablementAreaProvider, defaultValue } from 'uiSrc/pages/workbench/contexts/enablementAreaContext'
+import { GuidesProvider, defaultValue } from 'uiSrc/pages/workbench/contexts/guidesContext'
 import { MONACO_MANUAL } from 'uiSrc/constants'
 
 import Code, { Props } from './Code'
@@ -22,9 +22,9 @@ describe('Code', () => {
     const label = 'Manual'
 
     const { queryByTestId } = render(
-      <EnablementAreaProvider value={{ ...defaultValue, setScript }}>
+      <GuidesProvider value={{ ...defaultValue, setScript }}>
         <Code {...instance(mockedProps)} label={label}>{MONACO_MANUAL}</Code>
-      </EnablementAreaProvider>
+      </GuidesProvider>
     )
 
     const link = queryByTestId(`preselect-${label}`)

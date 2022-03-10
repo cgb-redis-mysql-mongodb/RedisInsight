@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import cx from 'classnames'
 import { EuiListGroup, EuiLoadingContent } from '@elastic/eui'
 import { EnablementAreaComponent, IEnablementAreaItem } from 'uiSrc/slices/interfaces'
-import { EnablementAreaProvider, IInternalPage } from 'uiSrc/pages/workbench/contexts/enablementAreaContext'
+import { GuidesProvider, IInternalPage } from 'uiSrc/pages/workbench/contexts/guidesContext'
 import { appContextWorkbenchEA, resetWorkbenchEAGuide } from 'uiSrc/slices/app/context'
 import {
   CodeButton,
@@ -33,6 +33,7 @@ const EnablementArea = ({ items, openScript, loading, onOpenInternalPage }: Prop
   const { guidePath: guideFromContext } = useSelector(appContextWorkbenchEA)
   const [isInternalPageVisible, setIsInternalPageVisible] = useState(false)
   const [internalPage, setInternalPage] = useState<IInternalPage>({ path: '' })
+  console.log("items", items)
 
   useEffect(() => {
     const pagePath = new URLSearchParams(search).get('guide')
@@ -100,7 +101,7 @@ const EnablementArea = ({ items, openScript, loading, onOpenInternalPage }: Prop
     )))
 
   return (
-    <EnablementAreaProvider value={{ setScript: openScript, openPage: handleOpenInternalPage }}>
+    <GuidesProvider value={{ setScript: openScript, openPage: handleOpenInternalPage }}>
       <div data-testid="enablementArea" className={cx(styles.container, 'relative', 'enablement-area')}>
         { loading
           ? (
@@ -133,7 +134,7 @@ const EnablementArea = ({ items, openScript, loading, onOpenInternalPage }: Prop
           )}
         </div>
       </div>
-    </EnablementAreaProvider>
+    </GuidesProvider>
   )
 }
 

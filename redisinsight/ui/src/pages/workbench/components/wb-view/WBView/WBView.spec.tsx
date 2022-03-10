@@ -27,7 +27,7 @@ jest.mock('uiSrc/slices/workbench/wb-enablement-area', () => {
   const defaultState = jest.requireActual('uiSrc/slices/workbench/wb-enablement-area').initialState
   return {
     ...jest.requireActual('uiSrc/slices/workbench/wb-enablement-area'),
-    workbenchEnablementAreaSelector: jest.fn().mockReturnValue({
+    workbenchGuidesSelector: jest.fn().mockReturnValue({
       ...defaultState,
     }),
   }

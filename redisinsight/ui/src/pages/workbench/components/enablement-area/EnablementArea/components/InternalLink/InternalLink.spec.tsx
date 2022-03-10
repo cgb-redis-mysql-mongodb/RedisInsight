@@ -1,7 +1,7 @@
 import React from 'react'
 import { instance, mock } from 'ts-mockito'
 import { fireEvent, render } from 'uiSrc/utils/test-utils'
-import { EnablementAreaProvider, defaultValue } from 'uiSrc/pages/workbench/contexts/enablementAreaContext'
+import { GuidesProvider, defaultValue } from 'uiSrc/pages/workbench/contexts/guidesContext'
 
 import InternalLink, { Props } from './InternalLink'
 
@@ -20,9 +20,9 @@ describe('InternalLink', () => {
     const openPage = jest.fn()
 
     const { queryByTestId } = render(
-      <EnablementAreaProvider value={{ ...defaultValue, openPage }}>
+      <GuidesProvider value={{ ...defaultValue, openPage }}>
         <InternalLink {...instance(mockedProps)} testId="manual" path="static/workbench" label="Manual" />
-      </EnablementAreaProvider>
+      </GuidesProvider>
     )
 
     const link = queryByTestId(/internal-link-manual/)
@@ -33,9 +33,9 @@ describe('InternalLink', () => {
     const openPage = jest.fn()
 
     const { queryByTestId } = render(
-      <EnablementAreaProvider value={{ ...defaultValue, openPage }}>
+      <GuidesProvider value={{ ...defaultValue, openPage }}>
         <InternalLink {...instance(mockedProps)} testId="manual" label="Manual" />
-      </EnablementAreaProvider>
+      </GuidesProvider>
     )
 
     const link = queryByTestId(/internal-link-manual/)

@@ -1,10 +1,10 @@
 import React from 'react'
 import { fireEvent, render, screen, waitFor } from 'uiSrc/utils/test-utils'
-import { MOCK_ENABLEMENT_AREA_ITEMS } from 'uiSrc/constants'
-import { defaultValue, EnablementAreaProvider } from 'uiSrc/pages/workbench/contexts/enablementAreaContext'
+import { MOCK_GUIDES_ITEMS } from 'uiSrc/constants'
+import { defaultValue, GuidesProvider } from 'uiSrc/pages/workbench/contexts/guidesContext'
 import Pagination from './Pagination'
 
-const paginationItems = Object.values(MOCK_ENABLEMENT_AREA_ITEMS['quick-guides']?.children || {})
+const paginationItems = Object.values(MOCK_GUIDES_ITEMS['quick-guides']?.children || {})
 
 describe('Pagination', () => {
   it('should render', () => {
@@ -31,9 +31,9 @@ describe('Pagination', () => {
     const pageIndex = 0
 
     render(
-      <EnablementAreaProvider value={{ ...defaultValue, openPage }}>
+      <GuidesProvider value={{ ...defaultValue, openPage }}>
         <Pagination items={paginationItems} activePageId={paginationItems[pageIndex].id} />
-      </EnablementAreaProvider>
+      </GuidesProvider>
     )
     fireEvent.click(screen.getByTestId('enablement-area__next-page-btn'))
 
@@ -44,9 +44,9 @@ describe('Pagination', () => {
     const pageIndex = 1
 
     render(
-      <EnablementAreaProvider value={{ ...defaultValue, openPage }}>
+      <GuidesProvider value={{ ...defaultValue, openPage }}>
         <Pagination items={paginationItems} activePageId={paginationItems[pageIndex].id} />
-      </EnablementAreaProvider>
+      </GuidesProvider>
     )
     fireEvent.click(screen.getByTestId('enablement-area__prev-page-btn'))
 
@@ -55,9 +55,9 @@ describe('Pagination', () => {
   it('should correctly open by using pagination popover', async () => {
     const openPage = jest.fn()
     const { queryByTestId } = render(
-      <EnablementAreaProvider value={{ ...defaultValue, openPage }}>
+      <GuidesProvider value={{ ...defaultValue, openPage }}>
         <Pagination items={paginationItems} activePageId={paginationItems[0].id} />
-      </EnablementAreaProvider>
+      </GuidesProvider>
     )
 
     fireEvent.click(screen.getByTestId('enablement-area__pagination-popover-btn'))

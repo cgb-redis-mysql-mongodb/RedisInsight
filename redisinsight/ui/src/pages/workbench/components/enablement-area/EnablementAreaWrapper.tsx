@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { monaco } from 'react-monaco-editor'
+import {merge} from 'lodash'
 import { EuiFlexGroup, EuiFlexItem } from '@elastic/eui'
 import cx from 'classnames'
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
@@ -8,11 +9,12 @@ import { useParams } from 'react-router-dom'
 
 import { Nullable, } from 'uiSrc/utils'
 import { sendEventTelemetry, TelemetryEvent } from 'uiSrc/telemetry'
-import { fetchEnablementArea, workbenchEnablementAreaSelector } from 'uiSrc/slices/workbench/wb-enablement-area'
+import { fetchGuides, workbenchGuidesSelector } from 'uiSrc/slices/workbench/wb-guides'
+import { fetchTutorials, workbenchTutorialsSelector } from 'uiSrc/slices/workbench/wb-tutotials'
 
 import EnablementArea from './EnablementArea'
 import EnablementAreaCollapse from './EnablementAreaCollapse/EnablementAreaCollapse'
-import { IInternalPage } from '../../contexts/enablementAreaContext'
+import { IInternalPage } from '../../contexts/guidesContext'
 
 import styles from './styles.module.scss'
 
@@ -24,13 +26,26 @@ export interface Props {
 }
 
 const EnablementAreaWrapper = React.memo(({ isMinimized, setIsMinimized, scriptEl, setScript }: Props) => {
-  const { loading, items } = useSelector(workbenchEnablementAreaSelector)
+  const { loading: loadingGuides, items: guides } = useSelector(workbenchGuidesSelector)
+  const { loading: loadingTutorials, items: tutorials } = useSelector(workbenchTutorialsSelector)
   const { instanceId = '' } = useParams<{ instanceId: string }>()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchEnablementArea())
+    dispatch(fetchGuides())
   }, [])
+
+  useEffect(() => {
+    dispatch(fetchTutorials())
+  }, [])
+
+  // TODO: update it when tutorials repo will be finish 
+  const items = useMemo(() => {
+    const quickGuides = guides["quick-guides"] ? { "quick-quides": guides["quick-guides"]} : null;
+    const tutorialsItems = tutorials["tutorials"] ? { "tutorials": tutorials.tutorials} : null;
+    const manual = guides.manual ? {manual: guides.manual} : null;
+    return merge(quickGuides, tutorialsItems, manual)
+  }, [guides, tutorials])
 
   const sendEventButtonClickedTelemetry = (data: Record<string, any>) => {
     sendEventTelemetry({
@@ -83,7 +98,7 @@ const EnablementAreaWrapper = React.memo(({ isMinimized, setIsMinimized, scriptE
       >
         <EnablementArea
           items={items}
-          loading={loading}
+          loading={loadingGuides || loadingTutorials}
           openScript={openScript}
           onOpenInternalPage={onOpenInternalPage}
         />
